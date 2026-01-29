@@ -22,9 +22,9 @@ public class MainHook implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) {
 
-        if ("org.telegram.messenger".equals(loadPackageParam.packageName)) {
+        if ("org.telegram.plus".equals(loadPackageParam.packageName)) {
             try {
-                XposedHelpers.findAndHookMethod("org.telegram.messenger.FileLoadOperation", loadPackageParam.classLoader, "updateParams", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod("org.telegram.plus.FileLoadOperation", loadPackageParam.classLoader, "updateParams", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
@@ -45,7 +45,7 @@ public class MainHook implements IXposedHookLoadPackage {
                                 var title = "Speed Boost Activated";
                                 var subtitle = "Extreme Speed Mode Enabled by Araaf Royall";
                                 try {
-                                    var notificationCenterClass = XposedHelpers.findClass("org.telegram.messenger.NotificationCenter", loadPackageParam.classLoader);
+                                    var notificationCenterClass = XposedHelpers.findClass("org.telegram.plus.NotificationCenter", loadPackageParam.classLoader);
                                     var globalInstance = XposedHelpers.callStaticMethod(notificationCenterClass, "getGlobalInstance");
                                     new Handler(Looper.getMainLooper()).post(() -> XposedHelpers.callMethod(
                                             globalInstance,
